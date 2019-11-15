@@ -3,6 +3,7 @@ package com.yoshimasa36g.tryjetpackcompose
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.Composable
+import androidx.compose.Model
 import androidx.compose.unaryPlus
 import androidx.ui.core.Clip
 import androidx.ui.core.Text
@@ -10,13 +11,10 @@ import androidx.ui.core.dp
 import androidx.ui.core.setContent
 import androidx.ui.foundation.DrawImage
 import androidx.ui.foundation.shape.corner.RoundedCornerShape
-import androidx.ui.graphics.imageFromResource
 import androidx.ui.layout.*
+import androidx.ui.material.Button
 import androidx.ui.material.MaterialTheme
-import androidx.ui.material.themeTextStyle
-import androidx.ui.material.withOpacity
 import androidx.ui.res.imageResource
-import androidx.ui.text.style.TextOverflow
 import androidx.ui.tooling.preview.Preview
 
 class MainActivity : AppCompatActivity() {
@@ -24,7 +22,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme {
-                NewStory()
+                when (AppState.scene) {
+                    Scene.Home -> NewStory()
+                    Scene.Second -> SecondScene()
+                }
             }
         }
     }
@@ -47,24 +48,42 @@ fun NewStory() {
 
             HeightSpacer(height = 16.dp)
 
-            Text("A day wandering through the sandhills in Shark " +
-                "Fin Cove, and a few of the sights I saw",
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
-                style = (+themeTextStyle { h6 })
-                    .withOpacity(0.87f))
-            Text("Davenport, California",
-                style = (+themeTextStyle { body2 })
-                    .withOpacity(0.87f))
-            Text("December 2018",
-                style = (+themeTextStyle { body2 })
-                    .withOpacity(0.6f))
+            Button("next", onClick = { navigateTo(Scene.Second) })
         }
     }
+}
+
+@Composable
+fun SecondScene() {
+    MaterialTheme {
+        Column(
+            crossAxisSize = LayoutSize.Expand,
+            modifier = Spacing(16.dp)
+        ) {
+            Text(text = "Scene 2")
+            Button("back",
+                onClick = { navigateTo(Scene.Home) })
+        }
+    }
+
 }
 
 @Preview
 @Composable
 fun DefaultPreview() {
     NewStory()
+}
+
+sealed class Scene {
+    object Home: Scene()
+    object Second: Scene()
+}
+
+@Model
+object AppState {
+    var scene: Scene = Scene.Home
+}
+
+fun navigateTo(scene: Scene) {
+    AppState.scene = scene
 }
