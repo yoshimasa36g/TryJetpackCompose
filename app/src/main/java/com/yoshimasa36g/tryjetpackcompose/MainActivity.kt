@@ -16,6 +16,7 @@ import androidx.ui.material.Button
 import androidx.ui.material.MaterialTheme
 import androidx.ui.res.imageResource
 import androidx.ui.tooling.preview.Preview
+import com.yoshimasa36g.tryjetpackcompose.ui.CircleImage
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +47,7 @@ fun NewStory() {
                 }
             }
 
+            CircleImage("https://www.placecage.com/c/100/100", 80.dp)
             HeightSpacer(height = 16.dp)
 
             Button("next", onClick = { navigateTo(Scene.Second) })
