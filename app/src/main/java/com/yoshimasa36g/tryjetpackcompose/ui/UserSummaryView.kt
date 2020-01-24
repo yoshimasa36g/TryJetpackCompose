@@ -11,12 +11,16 @@ import com.yoshimasa36g.tryjetpackcompose.models.User
 @Composable
 fun UserSummaryView(user: User) {
     Container(expanded = true, alignment = Alignment.CenterLeft) {
-        Row(crossAxisAlignment = CrossAxisAlignment.Center) {
-            CircleImage(url = user.thumbnailURL, size = 60.dp)
-            WidthSpacer(width = 16.dp)
-            Column(mainAxisAlignment = MainAxisAlignment.Start) {
-                Text(text = user.name)
-                Text(text = user.email)
+        Padding(padding = 8.dp) {
+            Row(crossAxisAlignment = CrossAxisAlignment.Center) {
+                CircleImage(
+                    model = CircleImageViewModel(user.thumbnailURL),
+                    size = 60.dp)
+                WidthSpacer(width = 16.dp)
+                Column(mainAxisAlignment = MainAxisAlignment.Start) {
+                    Text(text = user.name)
+                    Text(text = user.email)
+                }
             }
         }
     }
