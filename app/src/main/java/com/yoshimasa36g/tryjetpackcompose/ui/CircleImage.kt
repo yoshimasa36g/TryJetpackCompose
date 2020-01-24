@@ -2,34 +2,31 @@ package com.yoshimasa36g.tryjetpackcompose.ui
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.view.Surface
-import androidx.compose.Composable
-import androidx.compose.Model
-import androidx.compose.unaryPlus
+import androidx.compose.*
 import androidx.ui.core.Clip
 import androidx.ui.core.Dp
 import androidx.ui.core.dp
-import androidx.ui.core.px
 import androidx.ui.foundation.DrawImage
 import androidx.ui.foundation.shape.corner.CircleShape
-import androidx.ui.graphics.*
+import androidx.ui.graphics.Image
+import androidx.ui.graphics.ImageConfig
+import androidx.ui.graphics.NativeImage
 import androidx.ui.graphics.colorspace.ColorSpace
 import androidx.ui.graphics.colorspace.ColorSpaces
 import androidx.ui.layout.Container
-import androidx.ui.material.surface.Surface
 import androidx.ui.res.imageResource
 import androidx.ui.tooling.preview.Preview
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
 import com.yoshimasa36g.tryjetpackcompose.R
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 @Composable
 fun CircleImage(url: String, size: Dp) {
-    fetchImage(url)
+    +onActive {
+        fetchImage(url)
+    }
 
     Container(expanded = true, height = size, width = size) {
         Clip(shape = CircleShape) {
