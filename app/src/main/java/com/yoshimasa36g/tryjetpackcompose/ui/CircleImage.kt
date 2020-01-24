@@ -36,7 +36,7 @@ fun CircleImage(url: String, size: Dp) {
 }
 
 @Model
-object CircleImageState {
+private object CircleImageState {
     var image: Image = +imageResource(R.mipmap.person)
 }
 
@@ -44,7 +44,7 @@ private fun fetchImage(url: String) {
     Picasso.get().load(url).into(DownloadTarget)
 }
 
-object DownloadTarget : Target {
+private object DownloadTarget : Target {
     override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
     }
 
@@ -59,7 +59,7 @@ object DownloadTarget : Target {
     }
 }
 
-class BitmapImage(private val bitmap: Bitmap) : Image {
+private class BitmapImage(private val bitmap: Bitmap) : Image {
     override val colorSpace: ColorSpace = ColorSpaces.Srgb
     override val config: ImageConfig = ImageConfig.Argb8888
     override val hasAlpha: Boolean = bitmap.hasAlpha()
@@ -71,6 +71,6 @@ class BitmapImage(private val bitmap: Bitmap) : Image {
 
 @Preview
 @Composable
-fun DefaultPreview() {
-    CircleImage("https://www.placecage.com/c/100/100", 200.dp)
+fun CircleImagePreview() {
+    CircleImage("https://www.placecage.com/c/100/100", 100.dp)
 }

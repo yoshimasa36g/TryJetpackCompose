@@ -16,7 +16,9 @@ import androidx.ui.material.Button
 import androidx.ui.material.MaterialTheme
 import androidx.ui.res.imageResource
 import androidx.ui.tooling.preview.Preview
+import com.yoshimasa36g.tryjetpackcompose.models.User
 import com.yoshimasa36g.tryjetpackcompose.ui.CircleImage
+import com.yoshimasa36g.tryjetpackcompose.ui.UserSummaryView
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +51,16 @@ fun NewStory() {
 
             CircleImage("https://www.placecage.com/c/100/100", 80.dp)
             HeightSpacer(height = 16.dp)
+            UserSummaryView(
+                User(
+                    "Nicholas Cage",
+                    "male",
+                    "cage@example.com",
+                    "09000000000",
+                    "https://www.placecage.com/100/100",
+                    "https://www.placecage.com/200/200"
+                )
+            )
 
             Button("next", onClick = { navigateTo(Scene.Second) })
         }
