@@ -10,7 +10,6 @@ import androidx.ui.graphics.Image
 import androidx.ui.layout.*
 import androidx.ui.material.MaterialTheme
 import androidx.ui.material.TopAppBar
-import androidx.ui.material.ripple.Ripple
 import androidx.ui.res.imageResource
 import androidx.ui.text.TextStyle
 import androidx.ui.text.font.FontWeight
@@ -23,19 +22,21 @@ import com.yoshimasa36g.tryjetpackcompose.navigateToUsers
 fun UserDetailView(user: User) {
     val phone = +imageResource(R.drawable.phone)
     val email = +imageResource(R.drawable.email)
+    val back = +imageResource(R.drawable.back)
     MaterialTheme {
         TopAppBar(
             title = { Text(text = user.name) },
             navigationIcon = {
                 Clickable(onClick = { navigateToUsers() }) {
-                    DrawImage(image = phone)
+                    Icon(image = back, size = 24.dp)
                 }
             })
 
-        Container(expanded = true, alignment = Alignment.Center) {
+        Container(expanded = true) {
             Column(crossAxisAlignment = CrossAxisAlignment.Center) {
+                HeightSpacer(height = 150.dp)
                 CircleImage(
-                    model = CircleImageViewModel(user.thumbnailURL),
+                    model = CircleImageViewModel(user.imageURL),
                     size = 200.dp
                 )
                 HeightSpacer(height = 8.dp)
@@ -64,8 +65,8 @@ fun UserDetailView(user: User) {
 }
 
 @Composable
-private fun Icon(image: Image) {
-    Container(expanded = true, width = 18.dp, height = 18.dp) {
+private fun Icon(image: Image, size: Dp = 18.dp) {
+    Container(expanded = true, width = size, height = size) {
         Clip(shape = RectangleShape) {
             DrawImage(image = image)
         }
