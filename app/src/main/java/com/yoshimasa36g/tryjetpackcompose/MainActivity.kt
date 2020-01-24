@@ -14,55 +14,27 @@ import androidx.ui.foundation.shape.corner.RoundedCornerShape
 import androidx.ui.layout.*
 import androidx.ui.material.Button
 import androidx.ui.material.MaterialTheme
+import androidx.ui.material.TopAppBar
 import androidx.ui.res.imageResource
 import androidx.ui.tooling.preview.Preview
 import com.yoshimasa36g.tryjetpackcompose.models.User
 import com.yoshimasa36g.tryjetpackcompose.ui.CircleImage
 import com.yoshimasa36g.tryjetpackcompose.ui.UserSummaryView
+import com.yoshimasa36g.tryjetpackcompose.ui.UsersView
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme {
-                when (AppState.scene) {
-                    Scene.Home -> NewStory()
-                    Scene.Second -> SecondScene()
+                Column {
+                    TopAppBar(title = { Text(text = "TryJetpackCompose") })
+                    when (AppState.scene) {
+                        Scene.Users -> UsersView()
+                        Scene.Detail -> SecondScene()
+                    }
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun NewStory() {
-    val image = +imageResource(R.drawable.header)
-
-    MaterialTheme {
-        Column(
-            crossAxisSize = LayoutSize.Expand,
-            modifier = Spacing(16.dp)
-        ) {
-            Container(expanded = true, height = 180.dp) {
-                Clip(shape = RoundedCornerShape(8.dp)) {
-                    DrawImage(image)
-                }
-            }
-
-            CircleImage("https://www.placecage.com/c/100/100", 80.dp)
-            HeightSpacer(height = 16.dp)
-            UserSummaryView(
-                User(
-                    "Nicholas Cage",
-                    "male",
-                    "cage@example.com",
-                    "09000000000",
-                    "https://www.placecage.com/100/100",
-                    "https://www.placecage.com/200/200"
-                )
-            )
-
-            Button("next", onClick = { navigateTo(Scene.Second) })
         }
     }
 }
@@ -76,7 +48,7 @@ fun SecondScene() {
         ) {
             Text(text = "Scene 2")
             Button("back",
-                onClick = { navigateTo(Scene.Home) })
+                onClick = { navigateTo(Scene.Users) })
         }
     }
 
@@ -85,17 +57,17 @@ fun SecondScene() {
 @Preview
 @Composable
 fun DefaultPreview() {
-    NewStory()
+    UsersView()
 }
 
 sealed class Scene {
-    object Home: Scene()
-    object Second: Scene()
+    object Users : Scene()
+    object Detail : Scene()
 }
 
 @Model
 object AppState {
-    var scene: Scene = Scene.Home
+    var scene: Scene = Scene.Users
 }
 
 fun navigateTo(scene: Scene) {

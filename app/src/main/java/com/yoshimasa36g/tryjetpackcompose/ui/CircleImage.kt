@@ -2,7 +2,10 @@ package com.yoshimasa36g.tryjetpackcompose.ui
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import androidx.compose.*
+import androidx.compose.Composable
+import androidx.compose.Model
+import androidx.compose.onActive
+import androidx.compose.unaryPlus
 import androidx.ui.core.Clip
 import androidx.ui.core.Dp
 import androidx.ui.core.dp
